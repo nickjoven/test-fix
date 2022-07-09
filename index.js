@@ -22,20 +22,27 @@ const div = document.getElementById('random-images')
 
 let thisUrl = ''
 const fetchReddit = (sub) => {
-    return fetch(sub) //url
-        .then((response) => response.json())
-        .then((responseData) => {
-            return responseData;
-        })
-        .catch(error => console.warn(error));
+    fetch(sub) //url
+    .then((response) => response.json())
+    .then((responseData) => {
+        console.log(responseData)
+        console.log(responseData.data)
+        let double = responseData.data.children[0].data.preview.images[0].resolutions[1].url
+        console.log(double)
+        let single = double.replaceAll('&amp;', '&')
+        console.log(single)
+        getImage(single)
+    })
+    .catch(error => console.warn(error));
+
 }
-fetchReddit(testUrl).then((obj) => {
-    let me = obj.data.children[0].data.preview.images[0].resolutions[1].url
-    getImage(me)
-})
+// fetchReddit(testUrl).then((obj) => {
+//     let me = obj.data.children[0].data.preview.images[0].resolutions[1].url
+//     getImage(me)
+// })
 
 
-thisUrl = fetchReddit(testUrl)
+console.log(fetchReddit(testUrl))
 
 const getImage = (url) => {
     const img = document.createElement('img')
@@ -49,4 +56,3 @@ const getImage = (url) => {
 // the function should take an argument fetchReddit(testUrl)
 
 
-getImage
